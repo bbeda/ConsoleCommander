@@ -75,13 +75,18 @@ namespace ConsoleCommander.App
         {
             get
             {
-                var paramName = "p";
                 var prefix = string.Empty;
                 if (!string.IsNullOrEmpty(LibraryClassName))
                 {
                     prefix = $"{this.LibraryClassName}.";
                 }
-                return $"{prefix}{Name} {string.Join(" ", Arguments.Select((a, ix) => paramName + ix))}";
+                var command = $"{prefix}{Name}";
+                if (this.Arguments.Any())
+                {
+                    command = command + " " + string.Join(" ", Arguments.Select((a, ix) => "p" + ix));
+                }
+
+                return command;
             }
         }
     }
