@@ -19,6 +19,11 @@ namespace ConsoleCommander.App
             return $"Executed Command2";
         }
 
+        public static string Command4(int i)
+        {
+            return $"Executed Command 4 param " + i.ToString();
+        }
+
         public static string Command3(string param1, string param2 = "val")
         {
             return $"Executed Command3 {param1} {param2}";

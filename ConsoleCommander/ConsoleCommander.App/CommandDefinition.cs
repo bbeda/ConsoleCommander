@@ -52,6 +52,9 @@ namespace ConsoleCommander.App
             return this.MethodIndo.Invoke(null, args)?.ToString();
         }
 
+        public Type[] ArgTypes => this.MethodIndo.GetParameters().Select(p => p.ParameterType).ToArray();
+
+
         public string Pattern
         {
             get
@@ -86,6 +89,33 @@ namespace ConsoleCommander.App
                 sb.Append("$");
                 return sb.ToString();
             }
+        }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            if (!string.IsNullOrEmpty(this.CommandPrefix))
+            {
+                sb.Append(this.CommandPrefix + ".");
+            }
+
+            sb.Append(this.CommandName);
+
+            var ix = 0;
+            foreach (var p in this.RequiredArguments)
+            {
+                sb.Append(" " + this.MethodIndo.GetParameters()[ix].Name + ":" + p.Name);
+                ix++;
+            }
+            ix = 0;
+            foreach (var p in this.OptionalArguments)
+            {
+                sb.Append(" [" + this.MethodIndo.GetParameters()[ix].Name + ":" + p.Name + "]");
+                ix++;
+            }
+
+            return sb.ToString();
         }
     }
 }
