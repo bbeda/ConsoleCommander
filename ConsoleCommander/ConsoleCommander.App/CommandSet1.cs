@@ -33,5 +33,10 @@ namespace ConsoleCommander.App
         {
             return $"Executed Command1  {param1} {param2}";
         }
+
+        public static void Command5(string param1)
+        {
+            Console.WriteLine($"Executed Command5  {param1}");
+        }
     }
 }

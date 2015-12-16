@@ -49,7 +49,15 @@ namespace ConsoleCommander.App
 
         public string Execute(object[] args)
         {
-            return this.MethodIndo.Invoke(null, args)?.ToString();
+            if (this.MethodIndo.ReturnType != typeof(void))
+            {
+                return this.MethodIndo.Invoke(null, args)?.ToString();
+            }
+            else
+            {
+                this.MethodIndo.Invoke(null, args);
+                return "Success";
+            }
         }
 
         public Type[] ArgTypes => this.MethodIndo.GetParameters().Select(p => p.ParameterType).ToArray();

@@ -17,7 +17,8 @@ namespace ConsoleCommander.App
             {
                 Console.Write("console>");
                 var input = Console.ReadLine();
-                Console.WriteLine(CommandManager.Execute(input));
+                var result = CommandManager.Execute(input);
+                Console.WriteLine(result);
             }
         }
 

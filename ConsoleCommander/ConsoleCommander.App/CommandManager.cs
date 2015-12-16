@@ -53,7 +53,7 @@ namespace ConsoleCommander.App
         private static CommandDefinition[] GetCommands()
         {
             var commandClasses = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.GetCustomAttribute<CommandAttribute>() != null);
-            return commandClasses.SelectMany(c => c.GetMethods().Where(m => m.DeclaringType == c && !m.GetCustomAttributes<CommandIgnoreAttribute>().Any() && m.ReturnType == typeof(string))).Select(m => new CommandDefinition(m)).ToArray();
+            return commandClasses.SelectMany(c => c.GetMethods().Where(m => m.DeclaringType == c && !m.GetCustomAttributes<CommandIgnoreAttribute>().Any())).Select(m => new CommandDefinition(m)).ToArray();
         }
 
     }
