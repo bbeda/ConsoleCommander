@@ -30,15 +30,15 @@ namespace ConsoleCommander
             return "Not found!";
         }
 
-        public static string List()
+        public static string Help()
         {
             return ListInternal(null);
         }
 
-        public static string List(string prefix)
+        public static string Help(string prefix)
         {
             return ListInternal(prefix);
-        }
+        }      
 
         public static string Quit()
         {
