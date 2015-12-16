@@ -12,14 +12,21 @@ namespace ConsoleCommander.App
     {
         static void Main(string[] args)
         {
-
+            bool quitRequest = false;
+            CommandManager.OnQuit += (s, e) => quitRequest = true;
             while (true)
             {
                 Console.Write("console>");
                 var input = Console.ReadLine();
                 var result = CommandManager.Execute(input);
                 Console.WriteLine(result);
+                if (quitRequest)
+                {
+                    break;
+                }
             }
+
+            Console.WriteLine("Closing..");
         }
 
     }

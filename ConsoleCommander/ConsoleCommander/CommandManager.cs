@@ -30,14 +30,20 @@ namespace ConsoleCommander
             return "Not found!";
         }
 
-        public static string Ls()
+        public static string List()
         {
             return ListInternal(null);
         }
 
-        public static string Ls(string prefix)
+        public static string List(string prefix)
         {
             return ListInternal(prefix);
+        }
+
+        public static string Quit()
+        {
+            OnQuit?.Invoke(null, EventArgs.Empty);
+            return "Quit requested";
         }
 
         private static string ListInternal(string prefix)
@@ -53,8 +59,9 @@ namespace ConsoleCommander
         private static CommandDefinition[] GetCommands()
         {
             var commandClasses = AppDomain.CurrentDomain.GetAssemblies().SelectMany(a => a.GetTypes().Where(t => t.GetCustomAttribute<CommandAttribute>() != null));
-            return commandClasses.SelectMany(c => c.GetMethods().Where(m => m.DeclaringType == c && !m.GetCustomAttributes<CommandIgnoreAttribute>().Any())).Select(m => new CommandDefinition(m)).ToArray();
+            return commandClasses.SelectMany(c => c.GetMethods().Where(m => !m.IsSpecialName && m.DeclaringType == c && !m.GetCustomAttributes<CommandIgnoreAttribute>().Any())).Select(m => new CommandDefinition(m)).ToArray();
         }
 
+        public static event EventHandler OnQuit;
     }
 }
