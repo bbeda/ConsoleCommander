@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ConsoleCommander.App
+namespace ConsoleCommander
 {
     public class CommandAttribute : Attribute
     {

@@ -43,17 +43,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CommandDefinition.cs" />
-    <Compile Include="CommandIgnoreAttribute.cs" />
-    <Compile Include="CommandManager.cs" />
-    <Compile Include="ConsoleCommand.cs" />
-    <Compile Include="CommandAttribute.cs" />
     <Compile Include="CommandSet1.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ConsoleCommander\ConsoleCommander.csproj">
+      <Project>{af17fcd3-e7d7-4ca3-a2f4-e18626519189}</Project>
+      <Name>ConsoleCommander</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
