@@ -62,7 +62,6 @@ namespace ConsoleCommander.App
 
         public Type[] ArgTypes => this.MethodIndo.GetParameters().Select(p => p.ParameterType).ToArray();
 
-
         public string Pattern
         {
             get
