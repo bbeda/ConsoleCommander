@@ -11,8 +11,9 @@ namespace ConsoleCommander.App
     {
         public static string Command1(string param1)
         {
-            return $"Executed Command1, {param1}";
+            return $"Executed String Param Command1, {param1}";
         }
+
 
         public static string Command2()
         {
@@ -37,6 +38,11 @@ namespace ConsoleCommander.App
         public static void Command5(string param1)
         {
             Console.WriteLine($"Executed Command5  {param1}");
+        }
+
+        public static void Command6(int? param1)
+        {
+            Console.WriteLine($"Executed Command6 {param1?.ToString()}");
         }
     }
 }

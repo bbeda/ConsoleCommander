@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -64,14 +65,83 @@ namespace ConsoleCommander
 
         public string Execute(object[] args)
         {
+            Debug.Assert(args.Length == this.AllArgumentTypes.Length);
+
+            var coercedArgs = args.Select((a, ix) => CoerceValue(a, this.AllArgumentTypes[ix])).ToArray();
             if (this.MethodInfo.ReturnType != typeof(void))
             {
-                return this.MethodInfo.Invoke(null, args)?.ToString();
+                return this.MethodInfo.Invoke(null, coercedArgs)?.ToString();
             }
             else
             {
-                this.MethodInfo.Invoke(null, args);
+                this.MethodInfo.Invoke(null, coercedArgs);
                 return "Success";
+            }
+        }
+
+        private object CoerceValue(object value, Type targetType)
+        {
+            if (targetType.IsGenericType && targetType.GetGenericTypeDefinition() == typeof(Nullable<>))
+            {
+                if (value == null)
+                {
+                    return null;
+                }
+                targetType = Nullable.GetUnderlyingType(targetType);
+            }
+
+            var targetCode = Type.GetTypeCode(targetType);
+
+            if (targetType == typeof(Guid))
+            {
+                return Guid.Parse(Convert.ToString(value));
+            }
+
+
+            switch (targetCode)
+            {
+                case TypeCode.Empty:
+                    if (targetType.IsValueType)
+                    {
+                        return Activator.CreateInstance(targetType);
+                    }
+                    return null;
+                case TypeCode.Object:
+                    return value;
+                case TypeCode.DBNull:
+                    return DBNull.Value;
+                case TypeCode.Boolean:
+                    return Convert.ToBoolean(value);
+                case TypeCode.Char:
+                    return Convert.ToChar(value);
+                case TypeCode.SByte:
+                    return Convert.ToSByte(value);
+                case TypeCode.Byte:
+                    return Convert.ToByte(value);
+                case TypeCode.Int16:
+                    return Convert.ToInt16(value);
+                case TypeCode.UInt16:
+                    return Convert.ToUInt16(value);
+                case TypeCode.Int32:
+                    return Convert.ToInt32(value);
+                case TypeCode.UInt32:
+                    return Convert.ToUInt32(value);
+                case TypeCode.Int64:
+                    return Convert.ToInt64(value);
+                case TypeCode.UInt64:
+                    return Convert.ToUInt64(value);
+                case TypeCode.Single:
+                    return Convert.ToSingle(value);
+                case TypeCode.Double:
+                    return Convert.ToDouble(value);
+                case TypeCode.Decimal:
+                    return Convert.ToDecimal(value);
+                case TypeCode.DateTime:
+                    return Convert.ToDateTime(value);
+                case TypeCode.String:
+                    return Convert.ToString(value);
+                default:
+                    return value;
             }
         }
 
