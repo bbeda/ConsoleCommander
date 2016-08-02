@@ -3,7 +3,7 @@
   <metadata>
     <id>ConsoleCommander</id>
     <title>ConsoleCommander</title>
-    <author>Bogdan Beda</author>
+    <authors>Bogdan Beda</authors>
     <description>Allows defining commands to be executed from Console</description>
   </metadata>
 </package>
