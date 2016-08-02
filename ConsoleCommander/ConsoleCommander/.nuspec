@@ -5,5 +5,6 @@
     <title>ConsoleCommander</title>
     <authors>Bogdan Beda</authors>
     <description>Allows defining commands to be executed from Console</description>
+    <version>0.0.1</version>
   </metadata>
 </package>
