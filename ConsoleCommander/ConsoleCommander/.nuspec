@@ -1,7 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<metadata>
-  <id>ConsoleCommander</id>
-  <title>ConsoleCommander</title>
-  <author>Bogdan Beda</author>
-  <description>Allows defining commands to be executed from Console</description>
-</metadata>
+<package>
+  <metadata>
+    <id>ConsoleCommander</id>
+    <title>ConsoleCommander</title>
+    <author>Bogdan Beda</author>
+    <description>Allows defining commands to be executed from Console</description>
+  </metadata>
+</package>
